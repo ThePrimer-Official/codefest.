@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f8f5ff">
+<title>CODEFEST — Project Collection Desk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='23' fill='%2324213d'/%3E%3Ctext x='50' y='66' font-family='Arial,sans-serif' font-size='68' font-weight='bold' text-anchor='middle' fill='%23ffffff'%3Ec%3C/text%3E%3Ccircle cx='76' cy='72' r='7' fill='%237657ed'/%3E%3C/svg%3E">
+<style>
+:root{
+  --ink:#24213d;--muted:#77748f;--purple:#7657ed;--purple2:#a18cff;
+  --pink:#ff8eae;--yellow:#ffd66f;--mint:#8be0c0;--blue:#81cfff;
+  --paper:#fbf9ff;--line:#ece8f5;--white:#fff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"DM Sans",sans-serif;color:var(--ink);background:var(--paper);overflow-x:hidden}
+button,input,textarea{font:inherit}
+a{color:inherit;text-decoration:none}
+.bg-orb{position:fixed;z-index:-2;border-radius:50%;filter:blur(2px);pointer-events:none;opacity:.7}
+.orb-a{width:390px;height:390px;left:-170px;top:100px;background:#ffe0eb}
+.orb-b{width:440px;height:440px;right:-210px;top:420px;background:#dfd7ff}
+.orb-c{width:300px;height:300px;left:22%;bottom:-190px;background:#d7f8eb}
+.grid-bg{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.28;background-image:radial-gradient(#b8addd 1px,transparent 1px);background-size:23px 23px}
+.topbar{position:sticky;top:0;z-index:20;background:#ffffffd9;backdrop-filter:blur(18px);border-bottom:1px solid #ece8f5}
+.nav{max-width:1120px;margin:auto;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{font:700 23px "Space Grotesk";letter-spacing:-1.2px}.brand span{color:var(--purple)}
+.brand-mark{display:inline-grid;place-items:center;width:29px;height:29px;margin-right:7px;border-radius:10px;background:var(--ink);color:white;font-size:15px}
+.nav-right{display:flex;align-items:center;gap:10px}
+.live{display:flex;align-items:center;gap:8px;padding:9px 13px;border-radius:30px;background:#e8faef;color:#26764e;font-size:10px;font-weight:800;letter-spacing:.8px}
+.live i{width:7px;height:7px;background:#48c887;border-radius:50%;box-shadow:0 0 0 4px #48c88722}
+.nav-chip{font-size:10px;font-weight:800;letter-spacing:.8px;color:#756b98;background:#f0edff;padding:9px 13px;border-radius:30px}
+main{max-width:1050px;margin:0 auto;padding:54px 22px 80px}
+.hero{position:relative;text-align:center;padding:24px 0 35px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:9px 15px;border-radius:30px;background:#fff0b9;color:#74551b;font-size:10px;font-weight:800;letter-spacing:1.3px;transform:rotate(-1deg)}
+h1{font:700 clamp(42px,7vw,72px)/1.02 "Space Grotesk";letter-spacing:-3.5px;margin:23px 0 17px}
+h1 .color-word{background:linear-gradient(100deg,#7657ed 5%,#ed78a4 55%,#f0a83e);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-copy{max-width:590px;margin:auto;color:var(--muted);font-size:14px;line-height:1.9}
+.hero-stickers{display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin-top:23px}
+.sticker{padding:8px 12px;border-radius:12px;font-size:10px;font-weight:800}
+.sticker:nth-child(1){background:#e8e1ff;color:#6349c4}.sticker:nth-child(2){background:#ffe2eb;color:#a84d70}.sticker:nth-child(3){background:#dcf7ed;color:#347c61}
+.section-kicker{font-size:10px;font-weight:800;letter-spacing:1.6px;color:var(--purple);text-transform:uppercase;margin-bottom:10px}
+.profile-panel{position:relative;overflow:hidden;display:grid;grid-template-columns:1.2fr .8fr;gap:22px;padding:27px;border-radius:25px;background:var(--ink);color:white;box-shadow:0 18px 45px #29234222;margin:10px 0 25px}
+.profile-panel:after{content:"";position:absolute;width:270px;height:270px;border-radius:50%;right:-75px;top:-155px;background:linear-gradient(135deg,#947aff,#ff8eb0);opacity:.8}
+.profile-main,.profile-side{position:relative;z-index:1}
+.confirmed{display:inline-flex;align-items:center;gap:7px;color:#a9f0cc;font-size:10px;font-weight:800;letter-spacing:1px;margin-bottom:17px}
+.confirmed span{display:grid;place-items:center;width:17px;height:17px;background:#a9f0cc22;border-radius:50%}
+.profile-name{font:700 clamp(22px,4vw,31px) "Space Grotesk";letter-spacing:-.8px}
+.profile-caption{color:#bdb8d2;font-size:11px;margin-top:7px}
+.profile-side{display:flex;flex-direction:column;justify-content:center;gap:12px}
+.profile-meta{padding:12px 15px;border:1px solid #ffffff20;background:#ffffff0c;border-radius:14px}
+.profile-meta small{display:block;color:#bcb5d3;font-size:9px;font-weight:800;letter-spacing:1px;margin-bottom:5px}
+.profile-meta strong{font-size:13px}
+.profile-meta .flag{font-size:19px;vertical-align:middle;margin-right:6px}
+.content-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(260px,.75fr);gap:22px;align-items:start}
+.panel{background:#ffffffed;border:1px solid var(--line);border-radius:23px;padding:25px;box-shadow:0 12px 35px #4a3a7210}
+.panel-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:22px}
+.panel h2{font:700 21px "Space Grotesk";letter-spacing:-.6px}
+.panel-sub{font-size:11px;color:var(--muted);line-height:1.7;margin-top:6px}
+.step-tag{white-space:nowrap;padding:7px 10px;border-radius:10px;background:#f0edff;color:#7256dc;font-size:9px;font-weight:800;letter-spacing:.7px}
+.field{margin-bottom:17px}
+label{display:block;font-size:11px;font-weight:800;margin-bottom:8px}
+.optional{color:#aaa5b9;font-weight:600}
+input[type=text],input[type=url],textarea{width:100%;border:1.5px solid #ece8f4;background:#fcfbff;border-radius:12px;padding:13px 14px;color:var(--ink);outline:none;font-size:12px;transition:.2s}
+textarea{resize:vertical;min-height:92px;line-height:1.7}
+input:focus,textarea:focus{border-color:var(--purple);box-shadow:0 0 0 4px #7657ed14}
+.field-hint{font-size:10px;color:#9691a7;margin-top:7px;line-height:1.6}
+.upload{display:block;cursor:pointer;text-align:center;border:2px dashed #c9bafa;border-radius:18px;padding:27px 18px;background:linear-gradient(135deg,#f2efff,#fff0f5);transition:.2s}
+.upload:hover,.upload.dragover{border-color:var(--purple);transform:translateY(-2px);background:linear-gradient(135deg,#eae4ff,#ffe8f0)}
+.upload-icon{width:51px;height:51px;display:grid;place-items:center;margin:0 auto 12px;border-radius:16px;background:white;font-size:23px;box-shadow:0 7px 18px #7657ed18}
+.upload strong{display:block;font-size:12px}
+.upload p{font-size:10px;color:#8c87a1;margin-top:7px}
+#file{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+#fileName{margin-top:12px;color:#7055d5;font-size:11px;font-weight:800;overflow-wrap:anywhere}
+.file-row{display:flex;align-items:center;gap:12px;text-align:left;padding:12px;border-radius:13px;background:white;margin-top:15px}
+.file-symbol{width:38px;height:38px;display:grid;place-items:center;border-radius:11px;background:#eee9ff;font-size:18px}
+.file-details{min-width:0;flex:1}.file-details b{display:block;font-size:10px;overflow-wrap:anywhere}.file-details small{color:#9691a7;font-size:9px}
+.remove-file{border:0;background:#fff0f2;color:#c64f70;border-radius:9px;padding:8px 10px;font-size:10px;font-weight:800;cursor:pointer}
+.primary-btn{width:100%;border:0;border-radius:13px;padding:15px 18px;background:linear-gradient(100deg,#7657ed,#9b79f4 55%,#ec83ae);color:white;font-size:12px;font-weight:800;cursor:pointer;box-shadow:0 9px 20px #7657ed35;transition:.2s;margin-top:5px}
+.primary-btn:hover{transform:translateY(-2px);box-shadow:0 13px 25px #7657ed45}
+.status{display:none;margin-top:15px;padding:13px 14px;border-radius:12px;background:#e9f9f0;color:#28714d;font-size:11px;line-height:1.7}
+.status.show{display:block}
+.side-stack{display:grid;gap:16px}
+.side-card{padding:21px;border-radius:20px}
+.side-card h3{font:700 15px "Space Grotesk";margin-bottom:8px}
+.side-card p{font-size:10px;line-height:1.8;color:#6f6b83}
+.side-card.purple{background:#eee9ff}.side-card.yellow{background:#fff3cf}.side-card.mint{background:#e1f8ef}
+.side-icon{font-size:23px;margin-bottom:11px}
+.check-list{list-style:none;display:grid;gap:12px;margin-top:14px}
+.check-list li{display:flex;gap:9px;align-items:flex-start;font-size:10px;line-height:1.6;color:#66627b}
+.check-list li span{flex:0 0 19px;width:19px;height:19px;border-radius:7px;display:grid;place-items:center;background:#fff;color:#6b55cf;font-weight:900}
+.timeline{margin-top:24px;padding:23px;border-radius:21px;background:#fff;border:1px solid var(--line)}
+.timeline-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:17px}
+.timeline h2{font:700 17px "Space Grotesk"}
+.timeline-head span{font-size:9px;color:#8e89a2;font-weight:700}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.step{padding:15px;border-radius:14px;background:#faf9ff}
+.step-num{font:700 20px "Space Grotesk";color:#9b88e9;margin-bottom:8px}
+.step b{display:block;font-size:10px;margin-bottom:5px}
+.step p{font-size:9px;color:#88839b;line-height:1.6}
+.faq{margin-top:24px}
+.faq h2{font:700 20px "Space Grotesk";margin-bottom:13px}
+.faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.faq-item{padding:17px;border-radius:15px;background:#ffffffd9;border:1px solid var(--line)}
+.faq-item b{display:block;font-size:10px;margin-bottom:7px}
+.faq-item p{font-size:10px;line-height:1.7;color:#858097}
+footer{margin-top:20px;background:#24213d;color:white;padding:31px 22px}
+.footer-inner{max-width:1050px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.footer-brand{font:700 20px "Space Grotesk"}.footer-brand span{color:#b6a6ff}
+.footer-note{text-align:right;color:#aaa5c1;font-size:10px;line-height:1.8}
+.footer-bottom{max-width:1050px;margin:20px auto 0;padding-top:16px;border-top:1px solid #ffffff20;text-align:center;color:#8f89a8;font-size:9px}
+@media(max-width:760px){main{padding-top:35px}.profile-panel{grid-template-columns:1fr}.profile-side{display:grid;grid-template-columns:1fr 1fr}.content-grid{grid-template-columns:1fr}.side-stack{grid-template-columns:1fr 1fr}.side-card:last-child{grid-column:1/-1}}
+@media(max-width:520px){.nav{padding:13px 16px}.brand{font-size:19px}.nav-chip{display:none}main{padding-left:15px;padding-right:15px}.hero{padding-top:15px}h1{letter-spacing:-2.4px}.profile-panel,.panel{padding:20px}.profile-side{grid-template-columns:1fr 1fr}.side-stack{grid-template-columns:1fr}.side-card:last-child{grid-column:auto}.steps{grid-template-columns:1fr}.faq-grid{grid-template-columns:1fr}.footer-inner{flex-direction:column;text-align:center}.footer-note{text-align:center}}
+</style>
+</head>
+<body>
+<div class="bg-orb orb-a"></div><div class="bg-orb orb-b"></div><div class="bg-orb orb-c"></div><div class="grid-bg"></div>
+<header class="topbar">
+  <nav class="nav">
+    <div class="brand"><span class="brand-mark">✳</span>code<span>fest.</span></div>
+    <div class="nav-right"><div class="live"><i></i> COLLECTION DESK</div><div class="nav-chip">2026 EDITION</div></div>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="eyebrow">✦ YOU MADE IT. NOW SHOW IT.</div>
+    <h1>Ideas deserve<br>a <span class="color-word">spotlight.</span></h1>
+    <p class="hero-copy">Welcome to your project collection desk. Your participant registration is already confirmed — this page is where your finished work gets ready for the CODEFEST review.</p>
+    <div class="hero-stickers"><span class="sticker">✦ CREATIVE THINKING</span><span class="sticker">✳ BUILD SOMETHING COOL</span><span class="sticker">↗ SHARE YOUR WORK</span></div>
+  </section>
+
+  <section class="profile-panel">
+    <div class="profile-main">
+      <div class="confirmed"><span>✓</span> PARTICIPANT REGISTRATION CONFIRMED</div>
+      <div class="profile-name">Muhammad Abiy Elfiky</div>
+      <p class="profile-caption">Your participant profile · Ready for project collection</p>
+    </div>
+    <div class="profile-side">
+      <div class="profile-meta"><small>COUNTRY / REPRESENTING</small><strong><span class="flag">🇮🇩</span> Indonesia</strong></div>
+      <div class="profile-meta"><small>PORTAL STATUS</small><strong>Project collection stage</strong></div>
+    </div>
+  </section>
+
+  <div class="content-grid">
+    <section class="panel">
+      <div class="panel-head">
+        <div><div class="section-kicker">Your project drop-off</div><h2>Let's collect your work.</h2><p class="panel-sub">Add the project details below and attach the file you want the committee to review.</p></div>
+        <span class="step-tag">STEP 02 / 02</span>
+      </div>
+      <form id="projectForm">
+        <div class="field">
+          <label for="projectTitle">Project title <span class="optional">· required</span></label>
+          <input id="projectTitle" type="text" placeholder="Give your project a name..." required>
+        </div>
+        <div class="field">
+          <label for="projectDesc">What is your project about? <span class="optional">· optional</span></label>
+          <textarea id="projectDesc" placeholder="A short introduction: what does it do, what inspired it, or what makes it interesting?"></textarea>
+        </div>
+        <div class="field">
+          <label for="projectLink">Live demo / GitHub link <span class="optional">· optional</span></label>
+          <input id="projectLink" type="url" placeholder="https://github.com/username/project">
+          <p class="field-hint">If your project is already online, share a link so reviewers can explore it easily.</p>
+        </div>
+        <div class="field">
+          <label>Project file <span class="optional">· required</span></label>
+          <label class="upload" id="uploadArea" for="file">
+            <div class="upload-icon">📦</div>
+            <strong>Drop your project here or browse files</strong>
+            <p>Accepted formats: .ZIP or .HTML · Maximum size: 20 MB</p>
+            <div id="fileName">No project file selected</div>
+            <div id="fileInfo"></div>
+          </label>
+          <input type="file" id="file" accept=".zip,.html">
+        </div>
+        <button class="primary-btn" type="submit">Review my project package&nbsp; ↗</button>
+        <div class="status" id="statusBox" role="status"></div>
+        <p class="field-hint" style="text-align:center;margin-top:12px">This page previews and checks your package in the browser. Final delivery requires the organizer's connected upload destination.</p>
+      </form>
+    </section>
+
+    <aside class="side-stack">
+      <div class="side-card purple">
+        <div class="side-icon">🧩</div><h3>Make it easy to review</h3>
+        <p>Give your project a clear title and a short explanation. Help the reviewers understand the idea behind your creation.</p>
+      </div>
+      <div class="side-card yellow">
+        <div class="side-icon">📁</div><h3>Keep files tidy</h3>
+        <p>For ZIP submissions, include the important project files and make sure the main entry point is easy to find.</p>
+      </div>
+      <div class="side-card mint">
+        <div class="side-icon">🚀</div><h3>One last check</h3>
+        <p>Before handing it in, open your project one more time. Check that links work and the files you selected are the final version.</p>
+        <ul class="check-list">
+          <li><span>✓</span> Project title is clear</li>
+          <li><span>✓</span> Correct file format and size</li>
+          <li><span>✓</span> Demo link is accessible (if provided)</li>
+          <li><span>✓</span> No missing project assets</li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+
+  <section class="timeline">
+    <div class="timeline-head"><h2>From registration to review</h2><span>YOUR COMPETITION JOURNEY</span></div>
+    <div class="steps">
+      <div class="step"><div class="step-num">01</div><b>Registration</b><p>Participant details submitted and confirmed. You're already here — nice!</p></div>
+      <div class="step"><div class="step-num">02</div><b>Project collection</b><p>Prepare your project information and package for the committee.</p></div>
+      <div class="step"><div class="step-num">03</div><b>Review & evaluation</b><p>The submitted work can move to the review stage once the organizer receives it.</p></div>
+    </div>
+  </section>
+
+  <section class="faq">
+    <h2>A few helpful notes.</h2>
+    <div class="faq-grid">
+      <div class="faq-item"><b>What files can I submit?</b><p>This page accepts ZIP and HTML files up to 20 MB. If your project needs extra assets, package them together in a ZIP.</p></div>
+      <div class="faq-item"><b>Can I submit a project link?</b><p>Yes. Add a GitHub repository or live demo link in the optional link field alongside your project file.</p></div>
+      <div class="faq-item"><b>Is my registration complete?</b><p>Your participant details are shown as confirmed on this page. This section is for project collection, not a second registration.</p></div>
+      <div class="faq-item"><b>Does this page upload to the committee?</b><p>Not yet. The current page checks the selected file locally; an organizer-provided server or upload service must be connected for actual delivery.</p></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">code<span>fest.</span> ✳</div>
+    <div class="footer-note">OFFICIAL PROJECT COLLECTION DESK<br>Build with curiosity. Submit with confidence.</div>
+  </div>
+  <div class="footer-bottom">© 2026 CODEFEST COMPETITION · MADE FOR CREATIVE MINDS</div>
+</footer>
+
+<script>
+const fileInput = document.getElementById('file');
+const fileName = document.getElementById('fileName');
+const fileInfo = document.getElementById('fileInfo');
+const uploadArea = document.getElementById('uploadArea');
+const statusBox = document.getElementById('statusBox');
+let selectedFile = null;
+
+function formatSize(bytes){
+  return bytes < 1024*1024 ? (bytes/1024).toFixed(1)+' KB' : (bytes/(1024*1024)).toFixed(2)+' MB';
+}
+function showFile(file){
+  selectedFile = file || null;
+  statusBox.classList.remove('show');
+  if(!file){fileName.textContent='No project file selected';fileInfo.innerHTML='';return;}
+  const valid = /\.(zip|html)$/i.test(file.name);
+  if(!valid || file.size > 20*1024*1024){
+    alert('Please choose a ZIP or HTML file under 20 MB.');
+    fileInput.value='';selectedFile=null;
+    fileName.textContent='No project file selected';fileInfo.innerHTML='';
+    return;
+  }
+  fileName.textContent='✓ File selected';
+  fileInfo.innerHTML='<div class="file-row"><div class="file-symbol">'+(file.name.toLowerCase().endsWith('.zip')?'🗜️':'🌐')+'</div><div class="file-details"><b></b><small></small></div><button class="remove-file" type="button">REMOVE</button></div>';
+  fileInfo.querySelector('b').textContent=file.name;
+  fileInfo.querySelector('small').textContent=formatSize(file.size)+' · Ready for review';
+  fileInfo.querySelector('.remove-file').addEventListener('click',()=>{
+    fileInput.value='';showFile(null);
+  });
+}
+fileInput.addEventListener('change',()=>showFile(fileInput.files[0]));
+['dragenter','dragover'].forEach(type=>uploadArea.addEventListener(type,e=>{
+  e.preventDefault();uploadArea.classList.add('dragover');
+}));
+['dragleave','drop'].forEach(type=>uploadArea.addEventListener(type,e=>{
+  e.preventDefault();uploadArea.classList.remove('dragover');
+}));
+uploadArea.addEventListener('drop',e=>{
+  const file=e.dataTransfer.files[0];
+  if(!file)return;
+  const transfer=new DataTransfer();transfer.items.add(file);fileInput.files=transfer.files;showFile(file);
+});
+document.getElementById('projectForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const title=document.getElementById('projectTitle').value.trim();
+  if(!title){document.getElementById('projectTitle').focus();return;}
+  if(!selectedFile){alert('Please attach your project file first.');return;}
+  statusBox.innerHTML='<strong>Package check complete!</strong><br>'+title.replace(/[<>&"]/g,'')+' is ready in this browser, with '+selectedFile.name.replace(/[<>&"]/g,'')+' ('+formatSize(selectedFile.size)+').<br><br><strong>Next:</strong> connect this page to the official organizer upload endpoint to deliver the file for real.';
+  statusBox.classList.add('show');
+});
+</script>
+</body>
+</html>
